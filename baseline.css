@@ -9,6 +9,10 @@
 	font-family: 'Courier New', monospace;
 }
 
+html {
+	background-color: darkgray;
+}
+
 article {
 	background-color: white;
 	border: 1px solid black;
