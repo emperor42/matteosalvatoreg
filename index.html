@@ -1,34 +1,1003 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <title>Matthew Salvatore Giancola</title>
-        <script src="https://kit.fontawesome.com/48244907fa.js" crossorigin="anonymous"></script>
-        <link rel="stylesheet" type="text/css" href="baseline.css">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Matthew Giancola, B.Eng — Software Development Expert</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta charset="utf-8">
         <link rel="icon" type="image/x-icon" href="img.png">
-        <script src="baseline.js"></script>
-    </head>
-    <body>
-        <msg-header><script src="https://kit.fontawesome.com/48244907fa.js" blocking="render" crossorigin="anonymous"></script></msg-header>
-        <msg-home>
-            <h1 slot="header-title">Matthew Salvatore Giancola, B.Eng</h1>
-            <p slot="header-content">Software Development Expert</p>
-            <div slot="headline-content">
-                <!--Going to add in several sections which all allow-->
-                <a href="projects.html"><section class="section-padding"><i class="fa-solid fa-diagram-project"></i><br/>Projects Completed</section></a>
-                <a href="certifications.html"><section class="section-padding"><i class="fa-solid fa-certificate"></i><br/>Experiance &amp; Education</section></a>
-                <a href="skills.html"><section class="section-padding"><i class="fa-solid fa-code"></i><br/>Skills &amp; Summary</section></a>
-                <a href="contact.html"><section class="section-padding"><i class="fa-sharp fa-solid fa-globe"></i><br/>Contact Information</section></a>
-            </div>
-            <div slot="page-content">
-                <a target="_blank" href="https://www.salesforce.com/trailblazer/mgiancola1/"><section class="section-padding"><i class="fa-brands fa-salesforce"></i><br/>Salesforce Trailblazer</section></a>
-                <a target="_blank" href="https://www.hackerrank.com/matthew_giancol1?hr_r=1/"><section class="section-padding"><i class="fa-brands fa-hackerrank"></i><br/>HackerRank Profile</section></a>
-                <a target="_blank" href="https://www.github.com/Emperor42/"><section class="section-padding"><i class="fa-brands fa-github"></i><br/>GitHub Profile</section></a>
-                <a target="_blank" href="https://www.linkedin.com/in/matthew-giancola-507072174/"><section class="section-padding"><i class="fa-brands fa-linkedin"></i><br/>Linkedin Profile</section></a>
-            </div>
-        </msg-home>
-        <msg-footer><script src="https://kit.fontawesome.com/48244907fa.js" blocking="render" crossorigin="anonymous"></script></msg-footer>
-    </body>
-</html>
+  <!-- Bootstrap 4.4.1 -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+  
+  <!-- Font Awesome 6.5.1 -->
+  <script src="https://kit.fontawesome.com/48244907fa.js" crossorigin="anonymous"></script>
+  
+  <!-- jsPDF for PDF generation -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  
+  <style>
+    :root {
+      --primary-color: cornflowerblue;
+      --secondary-color: #ff6b35;
+      --bg-gray: lightgray;
+      --paper-shadow: 0 1px 2px rgba(0,0,0,0.15),
+                      0 3px 6px rgba(0,0,0,0.12),
+                      0 8px 16px rgba(0,0,0,0.08);
+    }
+    
+    body {
+      background-color: var(--bg-gray);
+      margin: 0;
+      padding: 2rem 1rem;
+      font-family: 'Courier New', monospace;
+      text-align: center;
+    }
+    
+    .profile-header {
+      background: white;
+      border-radius: 0.5rem;
+      box-shadow: var(--paper-shadow);
+      padding: 2rem;
+      margin: 0 auto 2rem auto;
+      width: 100%;
+      max-width: 900px;
+    }
+    
+    .profile-avatar {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid var(--primary-color);
+      margin-bottom: 1rem;
+    }
+    
+    /* Language switcher */
+    .lang-switcher {
+      display: flex;
+      justify-content: center;
+      gap: 0.5rem;
+      margin-bottom: 1.5rem;
+    }
+    
+    .lang-btn {
+      background: #e8e8e8;
+      color: #333;
+      border: 1px solid rgba(0,0,0,0.15);
+      border-radius: 0.25rem;
+      padding: 0.35rem 1rem;
+      font-size: 0.9rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+      font-family: inherit;
+    }
+    
+    .lang-btn:hover {
+      background: #dcdcdc;
+    }
+    
+    .lang-btn.active {
+      background: var(--primary-color);
+      color: white;
+      border-color: var(--primary-color);
+    }
+    
+    /* Buttons */
+    .btn-resume {
+      background: var(--primary-color);
+      color: white;
+      padding: 0.75rem 1.5rem;
+      border: none;
+      border-radius: 0.25rem;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.3s;
+      font-weight: bold;
+      margin: 0.5rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    .btn-resume:hover {
+      background: #5a8bd6;
+    }
+    
+    .btn-meeting {
+      background: var(--secondary-color);
+      color: white;
+      padding: 0.75rem 1.5rem;
+      border: none;
+      border-radius: 0.25rem;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.3s;
+      font-weight: bold;
+      margin: 0.5rem;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    .btn-meeting:hover {
+      background: #e85a2d;
+      color: white;
+      text-decoration: none;
+    }
+    
+    /* Sections */
+    section {
+      text-align: left;
+      margin: 0 auto 2rem auto;
+      max-width: 900px;
+    }
+    
+    section h2 {
+      text-align: center;
+      font-size: 1.5rem;
+      border-bottom: 2px solid var(--primary-color);
+      padding-bottom: 0.5rem;
+      margin-bottom: 1.5rem;
+    }
+    
+    /* Professional Summary Styles */
+    .summary-text {
+      background: white;
+      border-radius: 0.25rem;
+      box-shadow: var(--paper-shadow);
+      border: 1px solid rgba(0,0,0,0.06);
+      padding: 1.5rem;
+      margin-bottom: 1rem;
+      text-align: left;
+    }
+    
+    /* Accordion Cards - Independent heights, dates inside details */
+    .accordion-wrapper {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+      align-items: flex-start;
+    }
+    
+    .accordion-item {
+      background: white;
+      border-radius: 0.25rem;
+      box-shadow: var(--paper-shadow);
+      border: 1px solid rgba(0,0,0,0.06);
+      overflow: hidden;
+      flex: 1 1 calc(50% - 1rem);
+      min-width: 280px;
+      max-width: 440px;
+      margin: 0;
+      transition: box-shadow 0.2s ease;
+    }
+    
+    .accordion-item:hover {
+      box-shadow: 0 2px 4px rgba(0,0,0,0.18),
+                  0 6px 12px rgba(0,0,0,0.14),
+                  0 12px 24px rgba(0,0,0,0.10);
+    }
+    
+    .accordion-summary {
+      background: cornflowerblue;
+      color: white;
+      padding: 1rem;
+      cursor: pointer;
+      font-weight: bold;
+      list-style: none;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+    }
+    
+    .accordion-summary::-webkit-details-marker {
+      display: none;
+    }
+    
+    .accordion-summary::after {
+      content: '▼';
+      font-size: 0.8rem;
+    }
+    
+    details[open] .accordion-summary::after {
+      content: '▲';
+    }
+    
+    .accordion-details {
+      padding: 1rem;
+      text-align: left;
+    }
+    
+    .line {
+      margin: 0 0 0.35rem 0;
+      padding: 0;
+      text-align: left;
+      line-height: 1.4;
+    }
+    
+    .org {
+      display: block;
+      margin: 0 0 0.5rem 0;
+      font-weight: bold;
+    }
+    
+    .date-inline {
+      display: inline-block;
+      background: rgba(0,0,0,0.1);
+      padding: 0.25rem 0.5rem;
+      border-radius: 0.25rem;
+      font-size: 0.85rem;
+      margin-left: 0.5rem;
+    }
+    
+    .cert-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 0.5rem;
+      justify-content: flex-start;
+    }
+    
+    .cert-badge {
+      background: #e8e8e8;
+      padding: 0.3rem 0.6rem;
+      border-radius: 0.25rem;
+      font-size: 0.85rem;
+      display: inline-block;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+    }
+    
+    .peo-card {
+      background: white;
+      border-radius: 0.25rem;
+      box-shadow: var(--paper-shadow);
+      border: 1px solid rgba(0,0,0,0.06);
+      margin: 1rem auto;
+      padding: 1rem;
+      width: 100%;
+      max-width: 600px;
+      border-left: 4px solid var(--secondary-color);
+    }
+    
+    .disclaimer {
+      font-size: 0.75rem;
+      color: #888;
+      font-style: italic;
+      margin-top: 0.5rem;
+    }
+    
+    .status-alert {
+      display: none;
+      margin-top: 0.5rem;
+      padding: 0.5rem;
+      background: #ffe0e0;
+      border: 1px solid #d9534f;
+      border-radius: 0.25rem;
+      font-size: 0.85rem;
+      text-align: center;
+    }
+    
+    footer {
+      background: darkgray;
+      padding: 2rem 1rem;
+      margin: 3rem auto 0 auto;
+      border-radius: 0.5rem;
+      max-width: 900px;
+      width: 100%;
+      text-align: center;
+    }
+    
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1rem;
+      margin-top: 1rem;
+      justify-content: center;
+      text-align: left;
+    }
+    
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    .social-links {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+    
+    .social-links a {
+      color: var(--primary-color);
+      font-size: 1.5rem;
+      transition: transform 0.2s;
+    }
+    
+    .social-links a:hover {
+      transform: scale(1.2);
+    }
+    
+    @media (max-width: 768px) {
+      .accordion-item {
+        flex: 1 1 100%;
+        max-width: 100%;
+      }
+      
+      .profile-header {
+        padding: 1.5rem;
+      }
+      
+      .contact-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    
+    @media (min-width: 1025px) {
+      .accordion-item {
+        flex: 1 1 calc(33.333% - 1rem);
+        max-width: 340px;
+      }
+    }
+  </style>
+</head>
+<body>
 
+<!-- Profile Header -->
+<div class="profile-header">
+  <img src="img.png" alt="Matthew Giancola" class="profile-avatar" id="avatarImg" style="display:none;">
+  <img src="img.png" alt="Profile" class="profile-avatar" id="avatarFallback">
+  
+  <!-- Language Switcher -->
+  <div class="lang-switcher">
+    <button class="lang-btn active" type="button" data-lang="en">EN</button>
+    <button class="lang-btn" type="button" data-lang="fr">FR</button>
+    <button class="lang-btn" type="button" data-lang="it">IT</button>
+  </div>
+  
+  <h1 id="pdfName">Matthew Giancola, B.Eng</h1>
+  <p class="lead" id="pdfSubtitle"><span data-i18n="subtitle">Software Development Expert</span></p>
+  <p id="pdfCitizenship"><strong><span data-i18n="citizenshipLabel">Citizenship:</span></strong> <span data-i18n="citizenshipValue">Canadian &amp; Italian (Dual Citizen)</span></p>
+  
+  <div class="contact-grid">
+    <div class="contact-item"><i class="fa-solid fa-phone"></i> 514-430-9542</div>
+    <div class="contact-item"><i class="fa-solid fa-envelope"></i> matthew.giancola42@gmail.com</div>
+    <div class="contact-item"><i class="fa-solid fa-globe"></i> matteosalvatore.dev</div>
+    <div class="contact-item"><i class="fa-solid fa-code-branch"></i> github.com/Emperor42</div>
+  </div>
+  
+  <div class="social-links">
+    <a href="https://www.github.com/Emperor42/" target="_blank" title="GitHub"><i class="fa-brands fa-github"></i></a>
+    <a href="https://www.linkedin.com/in/matthew-giancola-507072174/" target="_blank" title="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+    <a href="https://www.hackerrank.com/matthew_giancol1?hr_r=1" target="_blank" title="HackerRank"><i class="fa-brands fa-hackerrank"></i></a>
+    <a href="https://www.salesforce.com/trailblazer/mgiancola1/" target="_blank" title="Salesforce Trailblazer"><i class="fa-brands fa-salesforce"></i></a>
+    <a href="https://www.hackerone.com/emperor42?type=user" target="_blank" title="HackerOne"><i class="fa-solid fa-shield-halved"></i></a>
+  </div>
+  
+  <div style="margin-top: 2rem;">
+    <button id="downloadResumeBtn" class="btn-resume" type="button">
+      <i class="fa-solid fa-file-pdf"></i> <span data-i18n="btnDownloadFull">Download One-Page PDF Resume</span>
+    </button>
+    <a href="https://calendar.proton.me/bookings#d6qaxTA4ZuxOxDQKJIN9VaJ4oFYAQ7iIk48JhGRyQt0=" target="_blank" class="btn-meeting">
+      <i class="fa-solid fa-calendar-check"></i> <span data-i18n="btnMeeting">Book a Meeting</span>
+    </a>
+  </div>
+  <div class="status-alert" id="statusAlert">PDF generation failed — check the browser console for details.</div>
+</div>
+
+<!-- Professional Summary (About Me integrated here, no separate card) -->
+<section id="summary">
+  <h2 data-i18n="secSummary">Professional Summary</h2>
+  <div class="summary-text">
+    <p class="line"><strong data-i18n="sumL1">Software Engineering graduate (Concordia University) and EIT with PEO</strong></p>
+    <p class="line" data-i18n="sumL2">15+ years across Java, Python, C/C++, PHP, and Go</p>
+    <p class="line" data-i18n="sumL3">Focus: AI, cybersecurity, and Salesforce platform development</p>
+    <p class="line" data-i18n="sumL4">Passionate about open-source software and self-hosted solutions</p>
+  </div>
+</section>
+
+<!-- Work Experience -->
+<section id="experience">
+  <h2 data-i18n="secExperience">Work Experience</h2>
+  <div class="accordion-wrapper">
+    <details class="accordion-item">
+      <summary class="accordion-summary" data-i18n="roleSynpulse">Software Engineer — Synpulse</summary>
+      <div class="accordion-details">
+        <strong class="org">Synpulse • Toronto, Ontario</strong>
+        <span class="date-inline" data-i18n="badgeSynpulse">Current • Toronto, Ontario</span>
+        <p class="line" data-i18n="synL1">Financial services consulting; owned delivery of an internal inventory system</p>
+        <p class="line" data-i18n="synL2">Certified HyperExponential HX Core Model Developer</p>
+      </div>
+    </details>
+    
+    <details class="accordion-item">
+      <summary class="accordion-summary" data-i18n="roleFounder">Founder — Azzurro Technology Inc.</summary>
+      <div class="accordion-details">
+        <strong class="org">Azzurro Technology Inc. • Remote</strong>
+        <span class="date-inline" data-i18n="badgeCurrent">Current</span>
+        <p class="line" data-i18n="azL1">Open-source consulting and self-hosted stack integration</p>
+        <p class="line" data-i18n="azL2">Leads VENI, VICI, and VIDI Go projects</p>
+        <p class="line" data-i18n="azL3">Risk analysis and technical due diligence for engagements</p>
+      </div>
+    </details>
+    
+    <details class="accordion-item">
+      <summary class="accordion-summary" data-i18n="roleWsp">OT Cybersecurity Specialist</summary>
+      <div class="accordion-details">
+        <strong class="org">WSP Canada Inc • Thornhill, Ontario</strong>
+        <span class="date-inline">Aug 2024 – Oct 2025</span>
+        <p class="line" data-i18n="wspL1">Built Python-based SCADA reporting for water and wastewater compliance</p>
+        <p class="line" data-i18n="wspL2">OT network cybersecurity analysis and standards development</p>
+      </div>
+    </details>
+    
+    <details class="accordion-item">
+      <summary class="accordion-summary" data-i18n="roleDeloitte">Salesforce Developer</summary>
+      <div class="accordion-details">
+        <strong class="org">Deloitte Inc • Ottawa</strong>
+        <span class="date-inline">Aug 2022 – Nov 2023</span>
+        <p class="line" data-i18n="delL1">Salesforce development: LWC, Flows, Apex, VisualForce</p>
+        <p class="line" data-i18n="delL2">Service, Sales, Non-Profit, Experience, OmniStudio clouds</p>
+      </div>
+    </details>
+    
+    <details class="accordion-item">
+      <summary class="accordion-summary" data-i18n="roleNubik">Junior Salesforce Developer</summary>
+      <div class="accordion-details">
+        <strong class="org">Nubik Inc • Montreal, Québec</strong>
+        <span class="date-inline">Jan 2022 – Aug 2022</span>
+        <p class="line" data-i18n="nubL1">Salesforce platform development (LWCs, Flows, Apex)</p>
+      </div>
+    </details>
+    
+    <details class="accordion-item">
+      <summary class="accordion-summary" data-i18n="roleRiverview">Technical Consultant</summary>
+      <div class="accordion-details">
+        <strong class="org">Riverview Cellars Estate Winery • Niagara-on-the-Lake, Ontario</strong>
+        <span class="date-inline">Sep 2014 – Aug 2021</span>
+        <p class="line" data-i18n="rivL1">Developed Canadian shipping pricing system (PHP, WordPress, SQL)</p>
+        <p class="line" data-i18n="rivL2">Server migration, website administration, and technical support</p>
+      </div>
+    </details>
+  </div>
+</section>
+
+<!-- Education -->
+<section id="education">
+  <h2 data-i18n="secEducation">Education</h2>
+  <div class="accordion-wrapper">
+    <details class="accordion-item" open>
+      <summary class="accordion-summary" data-i18n="eduDegree">B.Eng, Software Engineering</summary>
+      <div class="accordion-details">
+        <strong class="org">Concordia University • Montreal, Québec</strong>
+        <span class="date-inline">2016 – 2022</span>
+        <p class="line" data-i18n="eduL1">P.Eng applicant via Professional Engineers Ontario (see Professional Status)</p>
+      </div>
+    </details>
+  </div>
+</section>
+
+<!-- Technical Skills -->
+<section id="skills">
+  <h2 data-i18n="secSkills">Technical Skills</h2>
+  <div class="accordion-wrapper">
+    <details class="accordion-item">
+      <summary class="accordion-summary"><span data-i18n="skLanguages">Programming Languages</span></summary>
+      <div class="accordion-details">
+        <p class="line">Go (2016+), Java (2009+), Python (2015+), C/C++ (2015+)</p>
+        <p class="line">PHP (2014+), HTML/CSS/JS (2007+), Node.js (2018+), Apex (2022+)</p>
+      </div>
+    </details>
+    
+    <details class="accordion-item">
+      <summary class="accordion-summary">Salesforce</summary>
+      <div class="accordion-details">
+        <p class="line">LWC, Apex, VisualForce, Flow</p>
+        <p class="line">Service, Sales, Non-Profit, Experience, OmniStudio</p>
+      </div>
+    </details>
+    
+    <details class="accordion-item">
+      <summary class="accordion-summary"><span data-i18n="skTools">Tools &amp; Platforms</span></summary>
+      <div class="accordion-details">
+        <p class="line">Git, Docker, Jenkins, MongoDB</p>
+        <p class="line">Linux (Arch, Debian), Windows, WordPress</p>
+        <p class="line">Burp Suite (bug bounty)</p>
+      </div>
+    </details>
+    
+    <details class="accordion-item">
+      <summary class="accordion-summary"><span data-i18n="skSpoken">Languages Spoken</span></summary>
+      <div class="accordion-details">
+        <p class="line" data-i18n="langEn">English: Fluent</p>
+        <p class="line" data-i18n="langFr">French: B1</p>
+        <p class="line" data-i18n="langIt">Italian: B1</p>
+      </div>
+    </details>
+  </div>
+</section>
+
+<!-- Professional Credentials -->
+<section id="credentials">
+  <h2 data-i18n="secCreds">Professional Credentials</h2>
+  <div class="accordion-wrapper">
+    <details class="accordion-item">
+      <summary class="accordion-summary">Salesforce</summary>
+      <div class="accordion-details">
+        <div class="cert-list">
+          <span class="cert-badge">Platform Developer I</span>
+          <span class="cert-badge">Platform App Builder</span>
+          <span class="cert-badge">Administrator</span>
+          <span class="cert-badge">Sales Cloud Consultant</span>
+          <span class="cert-badge">AI Associate</span>
+          <span class="cert-badge">OmniStudio Developer</span>
+        </div>
+      </div>
+    </details>
+    
+    <details class="accordion-item">
+      <summary class="accordion-summary"><span data-i18n="credCyber">Cybersecurity</span></summary>
+      <div class="accordion-details">
+        <div class="cert-list">
+          <span class="cert-badge">IBM Cybersecurity Analyst</span>
+          <span class="cert-badge">Cyber Threat Intelligence</span>
+          <span class="cert-badge">Pen Testing &amp; Incident Response</span>
+          <span class="cert-badge">Forensics</span>
+          <span class="cert-badge">Compliance Frameworks</span>
+          <span class="cert-badge">OS Security</span>
+          <span class="cert-badge">Network Security</span>
+          <span class="cert-badge">Breach Response Capstone</span>
+        </div>
+      </div>
+    </details>
+    
+    <details class="accordion-item">
+      <summary class="accordion-summary"><span data-i18n="credOther">Other</span></summary>
+      <div class="accordion-details">
+        <div class="cert-list">
+          <span class="cert-badge">HyperExponential: HX Core Model Developer</span>
+          <span class="cert-badge">HackerRank: Go Developer (Basic)</span>
+          <span class="cert-badge">Arctic Code Vault Contributor</span>
+        </div>
+      </div>
+    </details>
+  </div>
+</section>
+
+<!-- Key Projects -->
+<section id="projects">
+  <h2><span data-i18n="secProjects">Key Projects</span> (github.com/Emperor42)</h2>
+  <div class="accordion-wrapper">
+    <details class="accordion-item">
+      <summary class="accordion-summary">VENI</summary>
+      <div class="accordion-details">
+        <p class="line" data-i18n="prjVeni">Zero-dependency Go middleware injecting vanilla JS web components into HTML templates</p>
+      </div>
+    </details>
+    
+    <details class="accordion-item">
+      <summary class="accordion-summary">VICI</summary>
+      <div class="accordion-details">
+        <p class="line" data-i18n="prjVici">Go middleware for user context, anonymous sessions, and authentication</p>
+      </div>
+    </details>
+    
+    <details class="accordion-item">
+      <summary class="accordion-summary">VIDI</summary>
+      <div class="accordion-details">
+        <p class="line" data-i18n="prjVidi">Go NoSQL database linking records and history via HTML forms and XML</p>
+      </div>
+    </details>
+    
+    <details class="accordion-item">
+      <summary class="accordion-summary"><span data-i18n="prjCondoT">Condo Management System</span></summary>
+      <div class="accordion-details">
+        <p class="line" data-i18n="prjCondo">PHP-based condominium management platform</p>
+      </div>
+    </details>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <h3 data-i18n="footContact">Contact Information</h3>
+  <div class="contact-grid">
+    <div class="contact-item"><i class="fa-solid fa-phone"></i> +1 514 430 9542</div>
+    <div class="contact-item"><i class="fa-solid fa-envelope"></i> <a href="mailto:matthew.giancola42@gmail.com">matthew.giancola42@gmail.com</a></div>
+    <div class="contact-item"><i class="fa-solid fa-location-dot"></i> Hamilton, Ontario, Canada</div>
+  </div>
+  <p style="margin-top: 1rem;" id="pdfAvailability"><strong><span data-i18n="footAvail">Availability:</span></strong> <span data-i18n="footAvailVal">Open to remote opportunities worldwide • Willing to relocate</span></p>
+  
+  <div class="social-links" style="margin-top: 1rem;">
+    <a href="https://www.github.com/Emperor42/" target="_blank" title="GitHub"><i class="fa-brands fa-github fa-2xl"></i></a>
+    <a href="https://www.linkedin.com/in/matthew-giancola-507072174/" target="_blank" title="LinkedIn"><i class="fa-brands fa-linkedin fa-2xl"></i></a>
+    <a href="https://www.hackerrank.com/matthew_giancol1?hr_r=1" target="_blank" title="HackerRank"><i class="fa-brands fa-hackerrank fa-2xl"></i></a>
+    <a href="https://www.salesforce.com/trailblazer/mgiancola1/" target="_blank" title="Salesforce Trailblazer"><i class="fa-brands fa-salesforce fa-2xl"></i></a>
+    <a href="https://calendar.proton.me/bookings#d6qaxTA4ZuxOxDQKJIN9VaJ4oFYAQ7iIk48JhGRyQt0=" target="_blank" title="Book a Meeting"><i class="fa-solid fa-calendar-check fa-2xl"></i></a>
+  </div>
+  
+  <!-- Professional Status -->
+  <div class="peo-card">
+    <strong class="peo-title" data-i18n="peoTitle">EIT (Engineer-in-Training) Registration</strong>
+    <p class="line"><strong><span data-i18n="peoBody">Issuing Body:</span></strong> Professional Engineers Ontario (PEO)</p>
+    <p class="line"><strong><span data-i18n="peoStatus">Status:</span></strong> <span data-i18n="peoStatusVal">Active EIT Candidate</span></p>
+    <p class="line"><strong><span data-i18n="peoCompletion">Expected Completion:</span></strong> 2026</p>
+    <p class="disclaimer" data-i18n="peoDisclaimer">Note: Not yet licensed as a Professional Engineer (P.Eng). Currently fulfilling experience requirements for P.Eng designation.</p>
+  </div>
+  
+  <div style="margin-top: 1.5rem;">
+    <button id="downloadResumeBtn2" class="btn-resume" type="button">
+      <i class="fa-solid fa-file-pdf"></i> <span data-i18n="btnDownloadShort">Download PDF Resume</span>
+    </button>
+    <a href="https://calendar.proton.me/bookings#d6qaxTA4ZuxOxDQKJIN9VaJ4oFYAQ7iIk48JhGRyQt0=" target="_blank" class="btn-meeting">
+      <i class="fa-solid fa-calendar-check"></i> <span data-i18n="btnMeeting2">Book a Meeting</span>
+    </a>
+  </div>
+  
+  <p style="margin-top: 1.5rem; font-size: 0.85rem;">
+    Generated from matteosalvatore.dev • <span id="generatedDate"></span>
+  </p>
+</footer>
+
+<script>
+(function () {
+  'use strict';
+
+  // ================= TRANSLATION DICTIONARY =================
+  var I18N = {
+    subtitle:              { en: "Software Development Expert", fr: "Expert en développement logiciel", it: "Esperto di sviluppo software" },
+    citizenshipLabel:      { en: "Citizenship:", fr: "Citoyenneté :", it: "Cittadinanza:" },
+    citizenshipValue:      { en: "Canadian & Italian (Dual Citizen)", fr: "Canadienne et italienne (double citoyenneté)", it: "Canadese e italiana (doppia cittadinanza)" },
+    btnDownloadFull:       { en: "Download One-Page PDF Resume", fr: "Télécharger le CV (PDF, une page)", it: "Scarica il CV (PDF, una pagina)" },
+    btnDownloadShort:      { en: "Download PDF Resume", fr: "Télécharger le CV (PDF)", it: "Scarica il CV (PDF)" },
+    btnMeeting:            { en: "Book a Meeting", fr: "Réserver un rendez-vous", it: "Prenota una riunione" },
+    btnMeeting2:           { en: "Book a Meeting", fr: "Réserver un rendez-vous", it: "Prenota una riunione" },
+
+    secSummary:            { en: "Professional Summary", fr: "Résumé professionnel", it: "Profilo professionale" },
+    secExperience:         { en: "Work Experience", fr: "Expérience professionnelle", it: "Esperienza lavorativa" },
+    secEducation:          { en: "Education", fr: "Formation", it: "Istruzione" },
+    secSkills:             { en: "Technical Skills", fr: "Compétences techniques", it: "Competenze tecniche" },
+    secCreds:              { en: "Professional Credentials", fr: "Certifications professionnelles", it: "Certificazioni professionali" },
+    secProjects:           { en: "Key Projects", fr: "Projets principaux", it: "Progetti principali" },
+
+    sumL1:                 { en: "Software Engineering graduate (Concordia University) and EIT with PEO", fr: "Diplômé en génie logiciel (Université Concordia), EIT auprès de PEO", it: "Laureato in ingegneria del software (Università Concordia), EIT presso PEO" },
+    sumL2:                 { en: "15+ years across Java, Python, C/C++, PHP, and Go", fr: "Plus de 15 ans d'expérience en Java, Python, C/C++, PHP et Go", it: "Oltre 15 anni di esperienza con Java, Python, C/C++, PHP e Go" },
+    sumL3:                 { en: "Focus: AI, cybersecurity, and Salesforce platform development", fr: "Axes : IA, cybersécurité et développement sur plateforme Salesforce", it: "Focus: IA, cyber sicurezza e sviluppo sulla piattaforma Salesforce" },
+    sumL4:                 { en: "Passionate about open-source software and self-hosted solutions", fr: "Passionné par les logiciels libres et l'auto-hébergement", it: "Appassionato di software open source e soluzioni self-hosted" },
+
+    roleSynpulse:          { en: "Software Engineer — Synpulse", fr: "Ingénieur logiciel — Synpulse", it: "Ingegnere informatico — Synpulse" },
+    badgeSynpulse:         { en: "Current • Toronto, Ontario", fr: "Actuel • Toronto, Ontario", it: "Attuale • Toronto, Ontario" },
+    synL1:                 { en: "Financial services consulting; owned delivery of an internal inventory system", fr: "Conseil en services financiers ; responsable de la livraison d'un système d'inventaire interne", it: "Consulenza nel settore finanziario; responsabile della realizzazione di un sistema di inventario interno" },
+    synL2:                 { en: "Certified HyperExponential HX Core Model Developer", fr: "Certifié HyperExponential HX Core Model Developer", it: "Certificato HyperExponential HX Core Model Developer" },
+
+    roleFounder:           { en: "Founder — Azzurro Technology Inc.", fr: "Fondateur — Azzurro Technology Inc.", it: "Fondatore — Azzurro Technology Inc." },
+    badgeCurrent:          { en: "Current", fr: "Actuel", it: "Attuale" },
+    azL1:                  { en: "Open-source consulting and self-hosted stack integration", fr: "Conseil en logiciels libres et intégration de piles auto-hébergées", it: "Consulenza open source e integrazione di stack self-hosted" },
+    azL2:                  { en: "Leads VENI, VICI, and VIDI Go projects", fr: "Dirige les projets Go VENI, VICI et VIDI", it: "Guida i progetti Go VENI, VICI e VIDI" },
+    azL3:                  { en: "Risk analysis and technical due diligence for engagements", fr: "Analyse des risques et diligence technique pour les mandats", it: "Analisi dei rischi e due diligence tecnica per gli incarichi" },
+
+    roleWsp:               { en: "OT Cybersecurity Specialist", fr: "Spécialiste en cybersécurité OT", it: "Specialista in cyber sicurezza OT" },
+    wspL1:                 { en: "Built Python-based SCADA reporting for water and wastewater compliance", fr: "Développement en Python de rapports SCADA pour la conformité des systèmes d'eau et d'eaux usées", it: "Sviluppo in Python di reportistica SCADA per la conformità dei sistemi idrici e di scarico" },
+    wspL2:                 { en: "OT network cybersecurity analysis and standards development", fr: "Analyse de cybersécurité des réseaux OT et élaboration de normes", it: "Analisi di cyber sicurezza delle reti OT e sviluppo di standard" },
+
+    roleDeloitte:          { en: "Salesforce Developer", fr: "Développeur Salesforce", it: "Sviluppatore Salesforce" },
+    delL1:                 { en: "Salesforce development: LWC, Flows, Apex, VisualForce", fr: "Développement Salesforce : LWC, Flows, Apex, VisualForce", it: "Sviluppo Salesforce: LWC, Flows, Apex, VisualForce" },
+    delL2:                 { en: "Service, Sales, Non-Profit, Experience, OmniStudio clouds", fr: "Clouds Service, Sales, Non-Profit, Experience, OmniStudio", it: "Cloud Service, Sales, Non-Profit, Experience, OmniStudio" },
+
+    roleNubik:             { en: "Junior Salesforce Developer", fr: "Développeur Salesforce junior", it: "Sviluppatore Salesforce junior" },
+    nubL1:                 { en: "Salesforce platform development (LWCs, Flows, Apex)", fr: "Développement sur plateforme Salesforce (LWC, Flows, Apex)", it: "Sviluppo sulla piattaforma Salesforce (LWC, Flows, Apex)" },
+
+    roleRiverview:         { en: "Technical Consultant", fr: "Consultant technique", it: "Consulente tecnico" },
+    rivL1:                 { en: "Developed Canadian shipping pricing system (PHP, WordPress, SQL)", fr: "Développement d'un système de tarification d'expédition canadien (PHP, WordPress, SQL)", it: "Sviluppo di un sistema di prezzi di spedizione canadese (PHP, WordPress, SQL)" },
+    rivL2:                 { en: "Server migration, website administration, and technical support", fr: "Migration de serveurs, administration de sites et soutien technique", it: "Migrazione dei server, amministrazione del sito e supporto tecnico" },
+
+    eduDegree:             { en: "B.Eng, Software Engineering", fr: "B. Ing., génie logiciel", it: "B. Ing., ingegneria del software" },
+    eduL1:                 { en: "P.Eng applicant via Professional Engineers Ontario (see Professional Status)", fr: "Candidat P.Eng auprès de Professional Engineers Ontario (voir Statut professionnel)", it: "Candidato P.Eng presso Professional Engineers Ontario (vedi Stato professionale)" },
+
+    skLanguages:           { en: "Programming Languages", fr: "Langages de programmation", it: "Linguaggi di programmazione" },
+    skTools:               { en: "Tools & Platforms", fr: "Outils et plateformes", it: "Strumenti e piattaforme" },
+    skSpoken:              { en: "Languages Spoken", fr: "Langues parlées", it: "Lingue parlate" },
+    langEn:                { en: "English: Fluent", fr: "Anglais : courant", it: "Inglese: fluente" },
+    langFr:                { en: "French: B1", fr: "Français : B1", it: "Francese: B1" },
+    langIt:                { en: "Italian: B1", fr: "Italien : B1", it: "Italiano: B1" },
+
+    credCyber:             { en: "Cybersecurity", fr: "Cybersécurité", it: "Cyber sicurezza" },
+    credOther:             { en: "Other", fr: "Autres", it: "Altre" },
+
+    prjVeni:               { en: "Zero-dependency Go middleware injecting vanilla JS web components into HTML templates", fr: "Middleware Go sans dépendance injectant des composants web JS natifs dans des modèles HTML", it: "Middleware Go senza dipendenze che inietta componenti web JS nativi nei template HTML" },
+    prjVici:               { en: "Go middleware for user context, anonymous sessions, and authentication", fr: "Middleware Go pour contexte utilisateur, sessions anonymes et authentification", it: "Middleware Go per contesto utente, sessioni anonime e autenticazione" },
+    prjVidi:               { en: "Go NoSQL database linking records and history via HTML forms and XML", fr: "Base de données NoSQL en Go reliant enregistrements et historique via formulaires HTML et XML", it: "Database NoSQL in Go che collega record e cronologia tramite form HTML e XML" },
+    prjCondoT:             { en: "Condo Management System", fr: "Système de gestion de copropriété", it: "Sistema di gestione condominiale" },
+    prjCondo:              { en: "PHP-based condominium management platform", fr: "Plateforme de gestion de copropriété en PHP", it: "Piattaforma di gestione condominiale in PHP" },
+
+    footContact:           { en: "Contact Information", fr: "Coordonnées", it: "Informazioni di contatto" },
+    footAvail:             { en: "Availability:", fr: "Disponibilité :", it: "Disponibilità:" },
+    footAvailVal:          { en: "Open to remote opportunities worldwide • Willing to relocate", fr: "Ouvert aux opportunités à distance partout dans le monde • Disponible à déménager", it: "Disponibile per opportunità remote in tutto il mondo • Disponibile al trasferimento" },
+
+    peoTitle:              { en: "EIT (Engineer-in-Training) Registration", fr: "Inscription EIT (ingénieur stagiaire)", it: "Registrazione EIT (ingegnere in formazione)" },
+    peoBody:               { en: "Issuing Body:", fr: "Organisme émetteur :", it: "Ente emittente:" },
+    peoStatus:             { en: "Status:", fr: "Statut :", it: "Stato:" },
+    peoStatusVal:          { en: "Active EIT Candidate", fr: "Candidat EIT actif", it: "Candidato EIT attivo" },
+    peoCompletion:         { en: "Expected Completion:", fr: "Achèvement prévu :", it: "Completamento previsto:" },
+    peoDisclaimer:         { en: "Note: Not yet licensed as a Professional Engineer (P.Eng). Currently fulfilling experience requirements for P.Eng designation.", fr: "Note : pas encore ingénieur professionnel (P.Eng). Acquisition en cours de l'expérience requise pour la désignation P.Eng.", it: "Nota: non ancora ingegnere professionista (P.Eng). Attualmente in fase di acquisizione dell'esperienza richiesta per la designazione P.Eng." },
+
+    pdfSecSummary:         { en: "PROFESSIONAL SUMMARY", fr: "RÉSUMÉ PROFESSIONNEL", it: "PROFILO PROFESSIONALE" },
+    pdfSecExperience:      { en: "WORK EXPERIENCE", fr: "EXPÉRIENCE PROFESSIONNELLE", it: "ESPERIENZA LAVORATIVA" },
+    pdfSecEducation:       { en: "EDUCATION", fr: "FORMATION", it: "ISTRUZIONE" },
+    pdfSecSkills:          { en: "TECHNICAL SKILLS", fr: "COMPÉTENCES TECHNIQUES", it: "COMPETENZE TECNICHE" },
+    pdfSecCerts:           { en: "CERTIFICATIONS", fr: "CERTIFICATIONS", it: "CERTIFICAZIONI" },
+    pdfMoreInfo:           { en: "More information available at matteosalvatore.dev", fr: "Plus d'informations disponibles sur matteosalvatore.dev", it: "Maggiori informazioni disponibili su matteosalvatore.dev" }
+  };
+
+  var currentLang = 'en';
+
+  function t(key) {
+    var entry = I18N[key];
+    if (!entry) return key;
+    return entry[currentLang] || entry.en;
+  }
+
+  function applyLanguage(lang) {
+    currentLang = lang;
+    document.documentElement.lang = lang;
+
+    document.querySelectorAll('[data-i18n]').forEach(function (el) {
+      var key = el.getAttribute('data-i18n');
+      if (I18N[key]) el.textContent = t(key);
+    });
+
+    document.querySelectorAll('.lang-btn').forEach(function (btn) {
+      btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
+    });
+
+    try { localStorage.setItem('preferred-lang', lang); } catch (e) { /* private mode */ }
+  }
+
+  // ================= DOM SCRAPING HELPERS =================
+  function textOf(el) {
+    return el ? el.textContent.replace(/\s+/g, ' ').trim() : '';
+  }
+
+  function cardHeading(cardEl) {
+    return textOf(cardEl.querySelector('.accordion-summary'));
+  }
+
+  function cardOrg(cardEl) {
+    return textOf(cardEl.querySelector('.org'));
+  }
+
+  function cardDate(cardEl) {
+    return textOf(cardEl.querySelector('.date-inline'));
+  }
+
+  function cardLines(cardEl) {
+    return Array.prototype.map.call(
+      cardEl.querySelectorAll('.line'),
+      function (l) { return textOf(l); }
+    ).filter(Boolean);
+  }
+
+  function scrapeCards(sectionId) {
+    return Array.prototype.map.call(
+      document.querySelectorAll('#' + sectionId + ' details.accordion-item'),
+      function (c) {
+        return { 
+          heading: cardHeading(c), 
+          org: cardOrg(c), 
+          date: cardDate(c),
+          lines: cardLines(c) 
+        };
+      }
+    );
+  }
+
+  function buildResumeFromDOM() {
+    var contactItems = Array.prototype.map.call(
+      document.querySelectorAll('.profile-header .contact-item'),
+      function (c) { return textOf(c); }
+    );
+
+    return {
+      name: textOf(document.getElementById('pdfName')),
+      subtitle: textOf(document.getElementById('pdfSubtitle')),
+      citizenship: textOf(document.getElementById('pdfCitizenship')).replace(/^(Citizenship|Citoyenneté|Cittadinanza)\s*:?\s*/i, ''),
+      availability: textOf(document.getElementById('pdfAvailability')).replace(/^(Availability|Disponibilité|Disponibilità)\s*:?\s*/i, ''),
+      contacts: contactItems,
+      summary: scrapeCards('summary'),
+      experience: scrapeCards('experience'),
+      education: scrapeCards('education'),
+      skills: scrapeCards('skills'),
+      certificates: Array.prototype.map.call(
+        document.querySelectorAll('#credentials details.accordion-item'),
+        function (c) {
+          var badges = Array.prototype.map.call(
+            c.querySelectorAll('.cert-badge'),
+            function (b) { return textOf(b); }
+          );
+          return { heading: cardHeading(c), badges: badges };
+        }
+      )
+    };
+  }
+
+  // ================= PDF GENERATION =================
+  function generateOnePagePDF() {
+    var jspdfNs = window.jspdf || window.jsPDF;
+    if (!jspdfNs) {
+      document.getElementById('statusAlert').style.display = 'block';
+      console.error('jsPDF is not loaded. Check the CDN script tag.');
+      return;
+    }
+    var jsPDF = jspdfNs.jsPDF || jspdfNs;
+
+    try {
+      var data = buildResumeFromDOM();
+
+      var doc = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
+      var y = 12;
+      var margin = 15;
+      var pageWidth = doc.internal.pageSize.width;
+      var contentWidth = pageWidth - margin * 2;
+
+      var LH = 3.3;
+      var SMALL_PT = 7.5;
+
+      var writeWrapped = function (text, indent, pt, lh) {
+        doc.setFont('helvetica', 'normal');
+        doc.setFontSize(pt);
+        var rows = doc.splitTextToSize(text, contentWidth - indent);
+        doc.text(rows, margin + indent, y);
+        y += rows.length * lh;
+      };
+
+      var writeSectionTitle = function (title) {
+        y += 4;
+        doc.setFont('helvetica', 'bold');
+        doc.setFontSize(10);
+        doc.setTextColor(0, 0, 0);
+        doc.text(title, margin, y);
+        y += 4.5;
+      };
+
+      // Header
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(16);
+      doc.setTextColor(0, 0, 0);
+      doc.text(data.name.toUpperCase(), pageWidth / 2, y, { align: 'center' });
+      y += 5;
+
+      writeWrapped(data.subtitle, 0, 11, 4.5);
+      y += 0.5;
+
+      var contactPairs = [
+        data.contacts.join('  |  '),
+        data.citizenship,
+        data.availability
+      ];
+      contactPairs.filter(Boolean).forEach(function (line) {
+        writeWrapped(line, 0, 8, LH);
+      });
+
+      doc.setDrawColor(0, 0, 0);
+      doc.setLineWidth(0.3);
+      doc.line(margin, y, pageWidth - margin, y);
+      y += 4;
+
+      // PROFESSIONAL SUMMARY (includes About Me content, no separate card)
+      if (data.summary.length) {
+        writeSectionTitle(t('pdfSecSummary'));
+        data.summary.forEach(function (card) {
+          writeWrapped(card.lines.join('. ') + '.', 1, SMALL_PT, LH);
+          y += 1;
+        });
+      }
+
+      // WORK EXPERIENCE
+      if (data.experience.length) {
+        writeSectionTitle(t('pdfSecExperience'));
+        data.experience.forEach(function (card) {
+          if (y > 245) return;
+          var head = card.heading + (card.org ? ' — ' + card.org : '') + (card.date ? ' (' + card.date + ')' : '');
+          writeWrapped(head, 0, SMALL_PT, LH);
+          if (card.lines.length) {
+            writeWrapped(card.lines.join('. ') + '.', 2, SMALL_PT, LH);
+          }
+          y += 1.2;
+        });
+      }
+
+      // EDUCATION
+      if (data.education.length) {
+        writeSectionTitle(t('pdfSecEducation'));
+        data.education.forEach(function (card) {
+          var head = card.heading + (card.org ? ' — ' + card.org : '') + (card.date ? ' (' + card.date + ')' : '');
+          writeWrapped(head, 0, SMALL_PT, LH);
+          if (card.lines.length) {
+            writeWrapped(card.lines.join('. ') + '.', 2, SMALL_PT, LH);
+          }
+        });
+        var peoTitle = textOf(document.querySelector('.peo-title'));
+        var peoLines = cardLines(document.querySelector('.peo-card'));
+        if (peoTitle) {
+          writeWrapped(peoTitle + ': ' + peoLines.join('; '), 1, SMALL_PT, LH);
+          y += 0.5;
+        }
+      }
+
+      // TECHNICAL SKILLS
+      if (data.skills.length) {
+        writeSectionTitle(t('pdfSecSkills'));
+        data.skills.forEach(function (card) {
+          if (y > 262) return;
+          var para = card.heading + ': ' + card.lines.join('; ') + '.';
+          writeWrapped(para, 1, SMALL_PT, LH);
+          y += 0.6;
+        });
+      }
+
+      // CERTIFICATIONS (NO TOTAL COUNT)
+      if (data.certificates.length) {
+        writeSectionTitle(t('pdfSecCerts'));
+        data.certificates.forEach(function (group) {
+          if (y > 270) return;
+          var para = group.heading + ': ' + group.badges.join(', ') + '.';
+          writeWrapped(para, 1, SMALL_PT, LH);
+          y += 0.5;
+        });
+      }
+
+      // "More information" note
+      doc.setFont('helvetica', 'italic');
+      doc.setFontSize(7.5);
+      doc.setTextColor(100, 100, 100);
+      doc.text(t('pdfMoreInfo'), pageWidth / 2, 281, { align: 'center' });
+
+      // Footer
+      doc.setFont('helvetica', 'normal');
+      doc.setFontSize(7);
+      doc.setTextColor(128, 128, 128);
+      doc.text('matteosalvatore.dev • ' + new Date().toLocaleDateString(), pageWidth / 2, 285, { align: 'center' });
+
+      doc.save('Matthew-Giancola-Resume-OnePage-' + new Date().toISOString().slice(0, 10) + '.pdf');
+    } catch (err) {
+      console.error('PDF generation failed:', err);
+      var alertBox = document.getElementById('statusAlert');
+      if (alertBox) alertBox.style.display = 'block';
+    }
+  }
+
+  // ================= INIT =================
+  window.addEventListener('load', function () {
+    var dateEl = document.getElementById('generatedDate');
+    if (dateEl) dateEl.textContent = new Date().toLocaleDateString();
+
+    var saved = 'en';
+    try { saved = localStorage.getItem('preferred-lang') || 'en'; } catch (e) {}
+    applyLanguage(saved);
+
+    document.querySelectorAll('.lang-btn').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        applyLanguage(btn.getAttribute('data-lang'));
+      });
+    });
+
+    var btn1 = document.getElementById('downloadResumeBtn');
+    var btn2 = document.getElementById('downloadResumeBtn2');
+    if (btn1) btn1.addEventListener('click', generateOnePagePDF);
+    if (btn2) btn2.addEventListener('click', generateOnePagePDF);
+  });
+})();
+</script>
+
+</body>
+</html>
