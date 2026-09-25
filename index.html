@@ -3,10 +3,9 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Matthew Giancola, B.Eng — Software Development Expert</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta charset="utf-8">
-        <link rel="icon" type="image/x-icon" href="img.png">
+  <title>Matthew Giancola, B.Eng</title>
+  <link rel="icon" type="image/x-icon" href="img.png">
+  
   <!-- Bootstrap 4.4.1 -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -27,6 +26,10 @@
       --paper-shadow: 0 1px 2px rgba(0,0,0,0.15),
                       0 3px 6px rgba(0,0,0,0.12),
                       0 8px 16px rgba(0,0,0,0.08);
+    }
+    
+    html {
+      scroll-behavior: smooth;
     }
     
     body {
@@ -85,6 +88,17 @@
       background: var(--primary-color);
       color: white;
       border-color: var(--primary-color);
+    }
+    
+    /* Inline status link */
+    a.inline-status-link {
+      color: var(--primary-color);
+      font-weight: bold;
+      text-decoration: underline;
+    }
+    
+    a.inline-status-link:hover {
+      color: #5a8bd6;
     }
     
     /* Buttons */
@@ -157,7 +171,7 @@
       text-align: left;
     }
     
-    /* Accordion Cards - Independent heights, dates inside details */
+    /* Accordion Cards - Independent heights */
     .accordion-wrapper {
       display: flex;
       flex-wrap: wrap;
@@ -265,6 +279,12 @@
       width: 100%;
       max-width: 600px;
       border-left: 4px solid var(--secondary-color);
+    }
+    
+    .select-project-title {
+      margin: 1rem 0 0.5rem 0;
+      font-size: 1.05rem;
+      font-weight: bold;
     }
     
     .disclaimer {
@@ -395,7 +415,7 @@
   <div class="status-alert" id="statusAlert">PDF generation failed — check the browser console for details.</div>
 </div>
 
-<!-- Professional Summary (About Me integrated here, no separate card) -->
+<!-- Professional Summary -->
 <section id="summary">
   <h2 data-i18n="secSummary">Professional Summary</h2>
   <div class="summary-text">
@@ -426,8 +446,7 @@
         <strong class="org">Azzurro Technology Inc. • Remote</strong>
         <span class="date-inline" data-i18n="badgeCurrent">Current</span>
         <p class="line" data-i18n="azL1">Open-source consulting and self-hosted stack integration</p>
-        <p class="line" data-i18n="azL2">Leads VENI, VICI, and VIDI Go projects</p>
-        <p class="line" data-i18n="azL3">Risk analysis and technical due diligence for engagements</p>
+        <p class="line" data-i18n="azL2">Risk analysis and technical due diligence for engagements</p>
       </div>
     </details>
     
@@ -481,7 +500,10 @@
       <div class="accordion-details">
         <strong class="org">Concordia University • Montreal, Québec</strong>
         <span class="date-inline">2016 – 2022</span>
-        <p class="line" data-i18n="eduL1">P.Eng applicant via Professional Engineers Ontario (see Professional Status)</p>
+        <p class="line"><span data-i18n="eduL1">A Bachelor of Engineering (B.Eng.) program in Software Engineering accredited by the Canadian Engineering Accreditation Board (CEAB) to ensure graduates meet the academic requirements for registering as a Professional Engineer (P.Eng.) in Canada</span> (<a href="#professional-status" class="inline-status-link" data-i18n="seeStatus">See Professional Status</a>)</p>
+        
+        <h4 class="select-project-title"><span data-i18n="selectProjectTitle">Project: Condo Management System</span></h4>
+        <p class="line" data-i18n="selectProjectDesc">Concordia University student project serving residents, owners, and managers with maintenance requests, dues, notices, documents, bookings, and access control through role-based interfaces.</p>
       </div>
     </details>
   </div>
@@ -508,7 +530,7 @@
     </details>
     
     <details class="accordion-item">
-      <summary class="accordion-summary"><span data-i18n="skTools">Tools &amp; Platforms</span></summary>
+      <summary class="accordion-summary"><span data-i18n="skTools">Tools & Platforms</span></summary>
       <div class="accordion-details">
         <p class="line">Git, Docker, Jenkins, MongoDB</p>
         <p class="line">Linux (Arch, Debian), Windows, WordPress</p>
@@ -551,7 +573,7 @@
         <div class="cert-list">
           <span class="cert-badge">IBM Cybersecurity Analyst</span>
           <span class="cert-badge">Cyber Threat Intelligence</span>
-          <span class="cert-badge">Pen Testing &amp; Incident Response</span>
+          <span class="cert-badge">Pen Testing & Incident Response</span>
           <span class="cert-badge">Forensics</span>
           <span class="cert-badge">Compliance Frameworks</span>
           <span class="cert-badge">OS Security</span>
@@ -581,28 +603,35 @@
     <details class="accordion-item">
       <summary class="accordion-summary">VENI</summary>
       <div class="accordion-details">
-        <p class="line" data-i18n="prjVeni">Zero-dependency Go middleware injecting vanilla JS web components into HTML templates</p>
+        <p class="line" data-i18n="prjVeni">JavaScript library that automatically discovers and registers custom web elements without manual wiring; its optional Go demonstration is a guarded web crawler exercising the registry.</p>
       </div>
     </details>
     
     <details class="accordion-item">
       <summary class="accordion-summary">VICI</summary>
       <div class="accordion-details">
-        <p class="line" data-i18n="prjVici">Go middleware for user context, anonymous sessions, and authentication</p>
+        <p class="line" data-i18n="prjVici">Browser-side helpers for cookie handling and WebCrypto-based encryption; its Go demonstration serves as a card editor consuming the encrypted session workflow.</p>
       </div>
     </details>
     
     <details class="accordion-item">
       <summary class="accordion-summary">VIDI</summary>
       <div class="accordion-details">
-        <p class="line" data-i18n="prjVidi">Go NoSQL database linking records and history via HTML forms and XML</p>
+        <p class="line" data-i18n="prjVidi">Front-end library that fetches database data as JSON or XML and renders it as escaped, paginated card views with CSV export.</p>
       </div>
     </details>
     
     <details class="accordion-item">
-      <summary class="accordion-summary"><span data-i18n="prjCondoT">Condo Management System</span></summary>
+      <summary class="accordion-summary">VINI</summary>
       <div class="accordion-details">
-        <p class="line" data-i18n="prjCondo">PHP-based condominium management platform</p>
+        <p class="line" data-i18n="prjVini">Client-side library managing validated multi-step workflows with local persistence, lifecycle event hooks, and resumable progress across steps.</p>
+      </div>
+    </details>
+    
+    <details class="accordion-item">
+      <summary class="accordion-summary">matteosalvatore.dev Portfolio</summary>
+      <div class="accordion-details">
+        <p class="line" data-i18n="prjPortfolio">Responsive single-page CV website translated into three languages via manual dictionary, with client-side one-page resume PDF generation scraped from live DOM content, deployed on static hosting with no backend.</p>
       </div>
     </details>
   </div>
@@ -626,8 +655,8 @@
     <a href="https://calendar.proton.me/bookings#d6qaxTA4ZuxOxDQKJIN9VaJ4oFYAQ7iIk48JhGRyQt0=" target="_blank" title="Book a Meeting"><i class="fa-solid fa-calendar-check fa-2xl"></i></a>
   </div>
   
-  <!-- Professional Status -->
-  <div class="peo-card">
+  <!-- Professional Status (anchor target) -->
+  <div class="peo-card" id="professional-status">
     <strong class="peo-title" data-i18n="peoTitle">EIT (Engineer-in-Training) Registration</strong>
     <p class="line"><strong><span data-i18n="peoBody">Issuing Body:</span></strong> Professional Engineers Ontario (PEO)</p>
     <p class="line"><strong><span data-i18n="peoStatus">Status:</span></strong> <span data-i18n="peoStatusVal">Active EIT Candidate</span></p>
@@ -645,7 +674,7 @@
   </div>
   
   <p style="margin-top: 1.5rem; font-size: 0.85rem;">
-    Generated from matteosalvatore.dev • <span id="generatedDate"></span>
+    Matthew Salvatore Giancola
   </p>
 </footer>
 
@@ -663,46 +692,49 @@
     btnMeeting:            { en: "Book a Meeting", fr: "Réserver un rendez-vous", it: "Prenota una riunione" },
     btnMeeting2:           { en: "Book a Meeting", fr: "Réserver un rendez-vous", it: "Prenota una riunione" },
 
-    secSummary:            { en: "Professional Summary", fr: "Résumé professionnel", it: "Profilo professionale" },
-    secExperience:         { en: "Work Experience", fr: "Expérience professionnelle", it: "Esperienza lavorativa" },
-    secEducation:          { en: "Education", fr: "Formation", it: "Istruzione" },
+    secSummary:            { en: "Professional Summary", fr: "Profil professionnel", it: "Profilo professionale" },
+    secExperience:         { en: "Work Experience", fr: "Expérience de travail", it: "Esperienza lavorativa" },
+    secEducation:          { en: "Education", fr: "Formation", it: "Formazione" },
     secSkills:             { en: "Technical Skills", fr: "Compétences techniques", it: "Competenze tecniche" },
-    secCreds:              { en: "Professional Credentials", fr: "Certifications professionnelles", it: "Certificazioni professionali" },
-    secProjects:           { en: "Key Projects", fr: "Projets principaux", it: "Progetti principali" },
+    secCreds:              { en: "Professional Credentials", fr: "Attestations professionnelles", it: "Abilitazioni professionali" },
+    secProjects:           { en: "Key Projects", fr: "Projets clés", it: "Progetti principali" },
 
-    sumL1:                 { en: "Software Engineering graduate (Concordia University) and EIT with PEO", fr: "Diplômé en génie logiciel (Université Concordia), EIT auprès de PEO", it: "Laureato in ingegneria del software (Università Concordia), EIT presso PEO" },
-    sumL2:                 { en: "15+ years across Java, Python, C/C++, PHP, and Go", fr: "Plus de 15 ans d'expérience en Java, Python, C/C++, PHP et Go", it: "Oltre 15 anni di esperienza con Java, Python, C/C++, PHP e Go" },
-    sumL3:                 { en: "Focus: AI, cybersecurity, and Salesforce platform development", fr: "Axes : IA, cybersécurité et développement sur plateforme Salesforce", it: "Focus: IA, cyber sicurezza e sviluppo sulla piattaforma Salesforce" },
-    sumL4:                 { en: "Passionate about open-source software and self-hosted solutions", fr: "Passionné par les logiciels libres et l'auto-hébergement", it: "Appassionato di software open source e soluzioni self-hosted" },
+    sumL1:                 { en: "Software Engineering graduate (Concordia University) and EIT with PEO", fr: "Diplômé en génie logiciel (Université Concordia) et EIT auprès de l'Ordre des ingénieurs de l'Ontario", it: "Laureato in ingegneria del software (Università Concordia) ed EIT presso l'Ordine degli Ingegneri dell'Ontario" },
+    sumL2:                 { en: "15+ years across Java, Python, C/C++, PHP, and Go", fr: "Plus de 15 ans avec Java, Python, C/C++, PHP et Go", it: "Oltre 15 anni di esperienza con Java, Python, C/C++, PHP e Go" },
+    sumL3:                 { en: "Focus: AI, cybersecurity, and Salesforce platform development", fr: "Domaines : IA, cybersécurité et développement de plateformes Salesforce", it: "Specializzazione: IA, sicurezza informatica e sviluppo di piattaforme Salesforce" },
+    sumL4:                 { en: "Passionate about open-source software and self-hosted solutions", fr: "Passionné par les logiciels libres et les solutions auto-hébergées", it: "Appassionato di software open source e soluzioni self-hosted" },
 
-    roleSynpulse:          { en: "Software Engineer — Synpulse", fr: "Ingénieur logiciel — Synpulse", it: "Ingegnere informatico — Synpulse" },
+    roleSynpulse:          { en: "Software Engineer — Synpulse", fr: "Ingénieur logiciel — Synpulse", it: "Ingegnere del software — Synpulse" },
     badgeSynpulse:         { en: "Current • Toronto, Ontario", fr: "Actuel • Toronto, Ontario", it: "Attuale • Toronto, Ontario" },
-    synL1:                 { en: "Financial services consulting; owned delivery of an internal inventory system", fr: "Conseil en services financiers ; responsable de la livraison d'un système d'inventaire interne", it: "Consulenza nel settore finanziario; responsabile della realizzazione di un sistema di inventario interno" },
-    synL2:                 { en: "Certified HyperExponential HX Core Model Developer", fr: "Certifié HyperExponential HX Core Model Developer", it: "Certificato HyperExponential HX Core Model Developer" },
+    synL1:                 { en: "Financial services consulting; owned delivery of an internal inventory system", fr: "Conseil en services financiers; responsable de la livraison d'un système d'inventaire interne", it: "Consulenza nei servizi finanziari; responsabile dello sviluppo di un sistema di inventario interno" },
+    synL2:                 { en: "Certified HyperExponential HX Core Model Developer", fr: "Développeur certifié HyperExponential HX Core Model", it: "Certificato come sviluppatore modello HX Core HyperExponential" },
 
     roleFounder:           { en: "Founder — Azzurro Technology Inc.", fr: "Fondateur — Azzurro Technology Inc.", it: "Fondatore — Azzurro Technology Inc." },
     badgeCurrent:          { en: "Current", fr: "Actuel", it: "Attuale" },
     azL1:                  { en: "Open-source consulting and self-hosted stack integration", fr: "Conseil en logiciels libres et intégration de piles auto-hébergées", it: "Consulenza open source e integrazione di stack self-hosted" },
-    azL2:                  { en: "Leads VENI, VICI, and VIDI Go projects", fr: "Dirige les projets Go VENI, VICI et VIDI", it: "Guida i progetti Go VENI, VICI e VIDI" },
-    azL3:                  { en: "Risk analysis and technical due diligence for engagements", fr: "Analyse des risques et diligence technique pour les mandats", it: "Analisi dei rischi e due diligence tecnica per gli incarichi" },
+    azL2:                  { en: "Risk analysis and technical due diligence for engagements", fr: "Analyse des risques et diligence raisonnable technique pour les mandats", it: "Analisi dei rischi e due diligence tecnica per gli incarichi" },
 
-    roleWsp:               { en: "OT Cybersecurity Specialist", fr: "Spécialiste en cybersécurité OT", it: "Specialista in cyber sicurezza OT" },
-    wspL1:                 { en: "Built Python-based SCADA reporting for water and wastewater compliance", fr: "Développement en Python de rapports SCADA pour la conformité des systèmes d'eau et d'eaux usées", it: "Sviluppo in Python di reportistica SCADA per la conformità dei sistemi idrici e di scarico" },
-    wspL2:                 { en: "OT network cybersecurity analysis and standards development", fr: "Analyse de cybersécurité des réseaux OT et élaboration de normes", it: "Analisi di cyber sicurezza delle reti OT e sviluppo di standard" },
+    roleWsp:               { en: "OT Cybersecurity Specialist", fr: "Spécialiste en cybersécurité OT", it: "Specialista in sicurezza informatica OT" },
+    wspL1:                 { en: "Built Python-based SCADA reporting for water and wastewater compliance", fr: "Développement de rapports SCADA en Python pour la conformité des eaux usées et potables", it: "Sviluppo di reportistica SCADA in Python per la conformità dei sistemi idrici e di scarico" },
+    wspL2:                 { en: "OT network cybersecurity analysis and standards development", fr: "Analyse de cybersécurité des réseaux OT et élaboration de normes", it: "Analisi della sicurezza delle reti OT e sviluppo di standard" },
 
     roleDeloitte:          { en: "Salesforce Developer", fr: "Développeur Salesforce", it: "Sviluppatore Salesforce" },
     delL1:                 { en: "Salesforce development: LWC, Flows, Apex, VisualForce", fr: "Développement Salesforce : LWC, Flows, Apex, VisualForce", it: "Sviluppo Salesforce: LWC, Flows, Apex, VisualForce" },
-    delL2:                 { en: "Service, Sales, Non-Profit, Experience, OmniStudio clouds", fr: "Clouds Service, Sales, Non-Profit, Experience, OmniStudio", it: "Cloud Service, Sales, Non-Profit, Experience, OmniStudio" },
+    delL2:                 { en: "Service, Sales, Non-Profit, Experience, OmniStudio clouds", fr: "Services : Service, Vente, À but non lucratif, Expérience, OmniStudio", it: "Servizi: Service, Sales, Non-Profit, Experience, OmniStudio" },
 
     roleNubik:             { en: "Junior Salesforce Developer", fr: "Développeur Salesforce junior", it: "Sviluppatore Salesforce junior" },
-    nubL1:                 { en: "Salesforce platform development (LWCs, Flows, Apex)", fr: "Développement sur plateforme Salesforce (LWC, Flows, Apex)", it: "Sviluppo sulla piattaforma Salesforce (LWC, Flows, Apex)" },
+    nubL1:                 { en: "Salesforce platform development (LWCs, Flows, Apex)", fr: "Développement sur la plateforme Salesforce (LWC, Flows, Apex)", it: "Sviluppo sulla piattaforma Salesforce (LWC, Flows, Apex)" },
 
     roleRiverview:         { en: "Technical Consultant", fr: "Consultant technique", it: "Consulente tecnico" },
-    rivL1:                 { en: "Developed Canadian shipping pricing system (PHP, WordPress, SQL)", fr: "Développement d'un système de tarification d'expédition canadien (PHP, WordPress, SQL)", it: "Sviluppo di un sistema di prezzi di spedizione canadese (PHP, WordPress, SQL)" },
-    rivL2:                 { en: "Server migration, website administration, and technical support", fr: "Migration de serveurs, administration de sites et soutien technique", it: "Migrazione dei server, amministrazione del sito e supporto tecnico" },
+    rivL1:                 { en: "Developed Canadian shipping pricing system (PHP, WordPress, SQL)", fr: "Développement d'un système de tarification d'expédition canadienne (PHP, WordPress, SQL)", it: "Sviluppo di un sistema di prezzi di spedizione canadese (PHP, WordPress, SQL)" },
+    rivL2:                 { en: "Server migration, website administration, and technical support", fr: "Migration de serveurs, administration de site web et soutien technique", it: "Migrazione dei server, amministrazione del sito web e supporto tecnico" },
 
-    eduDegree:             { en: "B.Eng, Software Engineering", fr: "B. Ing., génie logiciel", it: "B. Ing., ingegneria del software" },
-    eduL1:                 { en: "P.Eng applicant via Professional Engineers Ontario (see Professional Status)", fr: "Candidat P.Eng auprès de Professional Engineers Ontario (voir Statut professionnel)", it: "Candidato P.Eng presso Professional Engineers Ontario (vedi Stato professionale)" },
+    eduDegree:             { en: "B.Eng, Software Engineering", fr: "B. Ing., génie logiciel", it: "Laurea triennale in ingegneria del software" },
+    eduL1:                 { en: "A Bachelor of Engineering (B.Eng.) program in Software Engineering accredited by the Canadian Engineering Accreditation Board (CEAB) to ensure graduates meet the academic requirements for registering as a Professional Engineer (P.Eng.) in Canada", fr: "Un baccalauréat en ingénierie (B. Ing.) en génie logiciel accrédité par le Bureau canadien d'agrément des programmes de génie (BCAPG) afin que les diplômés satisfassent aux exigences académiques pour s'inscrire comme ingénieur professionnel (P. Eng.) au Canada", it: "Un percorso di laurea in ingegneria (B.Eng.) in ingegneria del software accreditato dal Canadian Engineering Accreditation Board (CEAB) per garantire che i laureati soddisfino i requisiti accademici per iscriversi come ingegnere professionista (P.Eng.) in Canada" },
+    seeStatus:             { en: "See Professional Status", fr: "voir Statut professionnel", it: "vedi Stato professionale" },
+
+    selectProjectTitle:    { en: "Project: Condo Management System", fr: "Projet : Système de gestion de copropriété", it: "Progetto: Sistema di gestione condominiale" },
+    selectProjectDesc:     { en: "Concordia University student project serving residents, owners, and managers with maintenance requests, dues, notices, documents, bookings, and access control through role-based interfaces.", fr: "Projet étudiant de l'Université Concordia servant les résidents, copropriétaires et gestionnaires pour les demandes d'entretien, les cotisations, les avis, les documents, les réservations et le contrôle d'accès via des interfaces basées sur les rôles.", it: "Progetto studentesco dell'Università Concordia dedicato a residenti, proprietari e amministratori per richieste di manutenzione, quote, avvisi, documenti, prenotazioni e controllo degli accessi tramite interfacce basate sui ruoli." },
 
     skLanguages:           { en: "Programming Languages", fr: "Langages de programmation", it: "Linguaggi di programmazione" },
     skTools:               { en: "Tools & Platforms", fr: "Outils et plateformes", it: "Strumenti e piattaforme" },
@@ -711,32 +743,33 @@
     langFr:                { en: "French: B1", fr: "Français : B1", it: "Francese: B1" },
     langIt:                { en: "Italian: B1", fr: "Italien : B1", it: "Italiano: B1" },
 
-    credCyber:             { en: "Cybersecurity", fr: "Cybersécurité", it: "Cyber sicurezza" },
+    credCyber:             { en: "Cybersecurity", fr: "Cybersécurité", it: "Sicurezza informatica" },
     credOther:             { en: "Other", fr: "Autres", it: "Altre" },
 
-    prjVeni:               { en: "Zero-dependency Go middleware injecting vanilla JS web components into HTML templates", fr: "Middleware Go sans dépendance injectant des composants web JS natifs dans des modèles HTML", it: "Middleware Go senza dipendenze che inietta componenti web JS nativi nei template HTML" },
-    prjVici:               { en: "Go middleware for user context, anonymous sessions, and authentication", fr: "Middleware Go pour contexte utilisateur, sessions anonymes et authentification", it: "Middleware Go per contesto utente, sessioni anonime e autenticazione" },
-    prjVidi:               { en: "Go NoSQL database linking records and history via HTML forms and XML", fr: "Base de données NoSQL en Go reliant enregistrements et historique via formulaires HTML et XML", it: "Database NoSQL in Go che collega record e cronologia tramite form HTML e XML" },
-    prjCondoT:             { en: "Condo Management System", fr: "Système de gestion de copropriété", it: "Sistema di gestione condominiale" },
-    prjCondo:              { en: "PHP-based condominium management platform", fr: "Plateforme de gestion de copropriété en PHP", it: "Piattaforma di gestione condominiale in PHP" },
+    prjVeni:               { en: "JavaScript library that automatically discovers and registers custom web elements without manual wiring; its optional Go demonstration is a guarded web crawler exercising the registry.", fr: "Bibliothèque JavaScript qui découvre et enregistre automatiquement les éléments web personnalisés sans câblage manuel ; sa démonstration optionnelle en Go est un robot d'exploration web restreint qui exerce le registre.", it: "Libreria JavaScript che scopre e registra automaticamente elementi web personalizzati senza cablaggio manuale; la sua dimostrazione opzionale in Go è un crawler web sorvegliato che utilizza il registro." },
+    prjVici:               { en: "Browser-side helpers for cookie handling and WebCrypto-based encryption; its Go demonstration serves as a card editor consuming the encrypted session workflow.", fr: "Utilitaires côté navigateur pour la manipulation des cookies et le chiffrement basé sur WebCrypto ; sa démonstration en Go sert d'éditeur de cartes consommant le flux de session chiffrée.", it: "Funzioni lato browser per la gestione dei cookie e la cifratura basata su WebCrypto; la sua dimostrazione in Go funge da editor di schede che utilizza il flusso di sessione cifrata." },
+    prjVidi:               { en: "Front-end library that fetches database data as JSON or XML and renders it as escaped, paginated card views with CSV export.", fr: "Bibliothèque front-end qui récupère les données de base de données en JSON ou XML et les affiche sous forme de vues en cartes échappées et paginées avec exportation CSV.", it: "Libreria front-end che recupera i dati del database in formato JSON o XML e li visualizza come viste a schede protette e paginate con esportazione CSV." },
+    prjVini:               { en: "Client-side library managing validated multi-step workflows with local persistence, lifecycle event hooks, and resumable progress across steps.", fr: "Bibliothèque côté client gérant des flux de travail multi-étapes validés avec persistance locale, crochets d'événements de cycle de vie et progression reprenable entre les étapes.", it: "Libreria lato client che gestisce flussi di lavoro multi-fase validati con persistenza locale, hook di eventi del ciclo di vita e progresso riprendibile tra le fasi." },
+    prjPortfolioT:         { en: "matteosalvatore.dev Portfolio", fr: "Portfolio matteosalvatore.dev", it: "Portfolio matteosalvatore.dev" },
+    prjPortfolio:          { en: "Responsive single-page CV website translated into three languages via manual dictionary, with client-side one-page resume PDF generation scraped from live DOM content, deployed on static hosting with no backend.", fr: "Site CV monopage réactif traduit en trois langues via dictionnaire manuel, avec génération client de CV PDF sur une page à partir du contenu DOM en direct, déployé sur un hébergement statique sans arrière-plan.", it: "Sito CV a pagina singola reattivo tradotto in tre lingue tramite dizionario manuale, con generazione lato client del CV PDF su una pagina estratto dal contenuto DOM live, distribuito su hosting statico senza backend." },
 
     footContact:           { en: "Contact Information", fr: "Coordonnées", it: "Informazioni di contatto" },
     footAvail:             { en: "Availability:", fr: "Disponibilité :", it: "Disponibilità:" },
     footAvailVal:          { en: "Open to remote opportunities worldwide • Willing to relocate", fr: "Ouvert aux opportunités à distance partout dans le monde • Disponible à déménager", it: "Disponibile per opportunità remote in tutto il mondo • Disponibile al trasferimento" },
 
-    peoTitle:              { en: "EIT (Engineer-in-Training) Registration", fr: "Inscription EIT (ingénieur stagiaire)", it: "Registrazione EIT (ingegnere in formazione)" },
+    peoTitle:              { en: "EIT (Engineer-in-Training) Registration", fr: "Inscription EIT (ingénieur en formation)", it: "Registrazione EIT (ingegnere in formazione)" },
     peoBody:               { en: "Issuing Body:", fr: "Organisme émetteur :", it: "Ente emittente:" },
     peoStatus:             { en: "Status:", fr: "Statut :", it: "Stato:" },
     peoStatusVal:          { en: "Active EIT Candidate", fr: "Candidat EIT actif", it: "Candidato EIT attivo" },
     peoCompletion:         { en: "Expected Completion:", fr: "Achèvement prévu :", it: "Completamento previsto:" },
-    peoDisclaimer:         { en: "Note: Not yet licensed as a Professional Engineer (P.Eng). Currently fulfilling experience requirements for P.Eng designation.", fr: "Note : pas encore ingénieur professionnel (P.Eng). Acquisition en cours de l'expérience requise pour la désignation P.Eng.", it: "Nota: non ancora ingegnere professionista (P.Eng). Attualmente in fase di acquisizione dell'esperienza richiesta per la designazione P.Eng." },
+    peoDisclaimer:         { en: "Note: Not yet licensed as a Professional Engineer (P.Eng). Currently fulfilling experience requirements for P.Eng designation.", fr: "Note : pas encore ingénieur professionnel (P.Eng). Acquisition en cours de l'expérience requise pour la désignation P.Eng.", it: "Nota: non ancora abilitato come ingegnere professionista (P.Eng). Al momento sta completando i requisiti esperienziali per l'abilitazione P.Eng." },
 
-    pdfSecSummary:         { en: "PROFESSIONAL SUMMARY", fr: "RÉSUMÉ PROFESSIONNEL", it: "PROFILO PROFESSIONALE" },
+    pdfSecSummary:         { en: "PROFESSIONAL SUMMARY", fr: "PROFIL PROFESSIONNEL", it: "PROFILO PROFESSIONALE" },
     pdfSecExperience:      { en: "WORK EXPERIENCE", fr: "EXPÉRIENCE PROFESSIONNELLE", it: "ESPERIENZA LAVORATIVA" },
-    pdfSecEducation:       { en: "EDUCATION", fr: "FORMATION", it: "ISTRUZIONE" },
+    pdfSecEducation:       { en: "EDUCATION", fr: "FORMATION", it: "FORMAZIONE" },
     pdfSecSkills:          { en: "TECHNICAL SKILLS", fr: "COMPÉTENCES TECHNIQUES", it: "COMPETENZE TECNICHE" },
     pdfSecCerts:           { en: "CERTIFICATIONS", fr: "CERTIFICATIONS", it: "CERTIFICAZIONI" },
-    pdfMoreInfo:           { en: "More information available at matteosalvatore.dev", fr: "Plus d'informations disponibles sur matteosalvatore.dev", it: "Maggiori informazioni disponibili su matteosalvatore.dev" }
+    pdfMoreInfo:           { en: "More information available at matteosalvatore.dev", fr: "Plus d'informations disponibles sur matteosalvatore.dev", it: "Ulteriori informazioni disponibili su matteosalvatore.dev" }
   };
 
   var currentLang = 'en';
@@ -893,7 +926,7 @@
       doc.line(margin, y, pageWidth - margin, y);
       y += 4;
 
-      // PROFESSIONAL SUMMARY (includes About Me content, no separate card)
+      // PROFESSIONAL SUMMARY
       if (data.summary.length) {
         writeSectionTitle(t('pdfSecSummary'));
         data.summary.forEach(function (card) {
@@ -916,15 +949,16 @@
         });
       }
 
-      // EDUCATION
+      // EDUCATION (includes Select Project)
       if (data.education.length) {
         writeSectionTitle(t('pdfSecEducation'));
         data.education.forEach(function (card) {
           var head = card.heading + (card.org ? ' — ' + card.org : '') + (card.date ? ' (' + card.date + ')' : '');
           writeWrapped(head, 0, SMALL_PT, LH);
-          if (card.lines.length) {
-            writeWrapped(card.lines.join('. ') + '.', 2, SMALL_PT, LH);
-          }
+          card.lines.forEach(function (line) {
+            writeWrapped(line, 1, SMALL_PT, LH);
+          });
+          y += 0.5;
         });
         var peoTitle = textOf(document.querySelector('.peo-title'));
         var peoLines = cardLines(document.querySelector('.peo-card'));
@@ -945,7 +979,7 @@
         });
       }
 
-      // CERTIFICATIONS (NO TOTAL COUNT)
+      // CERTIFICATIONS
       if (data.certificates.length) {
         writeSectionTitle(t('pdfSecCerts'));
         data.certificates.forEach(function (group) {
@@ -956,17 +990,17 @@
         });
       }
 
-      // "More information" note
+      // More info note
       doc.setFont('helvetica', 'italic');
       doc.setFontSize(7.5);
       doc.setTextColor(100, 100, 100);
       doc.text(t('pdfMoreInfo'), pageWidth / 2, 281, { align: 'center' });
 
-      // Footer
+      // Footer — Name only
       doc.setFont('helvetica', 'normal');
       doc.setFontSize(7);
       doc.setTextColor(128, 128, 128);
-      doc.text('matteosalvatore.dev • ' + new Date().toLocaleDateString(), pageWidth / 2, 285, { align: 'center' });
+      doc.text('Matthew Salvatore Giancola', pageWidth / 2, 285, { align: 'center' });
 
       doc.save('Matthew-Giancola-Resume-OnePage-' + new Date().toISOString().slice(0, 10) + '.pdf');
     } catch (err) {
@@ -978,9 +1012,6 @@
 
   // ================= INIT =================
   window.addEventListener('load', function () {
-    var dateEl = document.getElementById('generatedDate');
-    if (dateEl) dateEl.textContent = new Date().toLocaleDateString();
-
     var saved = 'en';
     try { saved = localStorage.getItem('preferred-lang') || 'en'; } catch (e) {}
     applyLanguage(saved);
