@@ -1,184 +1,59 @@
 # matteosalvatoreg
 
-CV website
-Simple Website for use as a CV link
+Personal CV site published at `matteosalvatore.dev` (see `CNAME`), now also served by a small Go API. The page is for **Matthew Giancola**; there is no "Alex Chen" placeholder data left in the code.
 
-## Overview
+Loopback and container-publishing rules for all six demos: [`../docs/LOCAL-DEMOS.md`](../docs/LOCAL-DEMOS.md). Runnable scripts and a loopback-only Compose file: [`../examples`](../examples/README.md).
 
-`matteosalvatoreg` is a modern, professional CV/portfolio website built with Go. It provides a clean and professional interface to showcase skills, experience, and education.
+## What is here
 
-## Features
+| Path | Purpose |
+| --- | --- |
+| `index.html` | The single-page CV with inline CSS and JavaScript. |
+| `img.png` | Profile image. |
+| `CNAME` | GitHub Pages custom domain: `matteosalvatore.dev`. |
+| `main.go` | Gin server that embeds and serves `index.html` and `img.png`, and exposes a JSON API. |
+| `main_test.go` | Router-level tests for the site and API. |
+| `go.mod`, `go.sum` | Pinned dependencies (Gin). |
 
-- **Professional CV Display**: Complete CV information including work experience, skills, and education
-- **Responsive Design**: Works well on desktop and mobile devices
-- **RESTful API**: JSON endpoints for CV data
-- **Health Check**: Built-in health monitoring endpoint
-- **Security Focused**: Implements security best practices
+### The CV page
 
-## API Endpoints
+- Sections: summary, experience, education, skills, credentials and professional status, projects, and contact.
+- EN / FR / IT language switcher driven by `data-i18n` attributes.
+- Buttons that build a one-page PDF résumé from the DOM with jsPDF.
+- Links to GitHub, LinkedIn, HackerRank, Salesforce Trailblazer, HackerOne, and a booking calendar.
+- A project accordion linking VENI, VICI, VIDI, VINI, and this site.
+- Third-party assets from Bootstrap 4.4.1, jQuery 3.4.1, Popper, Font Awesome, and jsPDF CDNs.
 
-### CV Information
-- **GET /api/cv** - Returns complete CV information
-
-### System Status
-- **GET /health** - Health check endpoint
-
-## Technology Stack
-
-- **Backend**: Go (Gin framework)
-- **API**: RESTful JSON
-- **Security**: HTTP security headers, CORS
-- **Deployment**: Docker ready
-
-## Running
-
-### Prerequisites
+### The Go server
 
 ```bash
-go 1.21+
+go test ./...
+go run .                 # http://127.0.0.1:8081
 ```
 
-### Building and Running
+| Variable | Default | Meaning |
+| --- | --- | --- |
+| `CV_HOST` | `127.0.0.1` | Bind address. |
+| `CV_PORT` | `8081` | Bind port. |
 
-```bash
-# Build the application
-go build
+| Endpoint | Purpose |
+| --- | --- |
+| `GET /` | The CV page, embedded in the binary. |
+| `GET /img.png` | Profile image, embedded in the binary. |
+| `GET /health` | Service status. |
+| `GET /api/cv` | Real CV data: name, contact, summary, experience, education, skills, credentials, links. |
+| `GET /api/about` | Site metadata: domain, languages, static-hosting note. |
 
-# Run the application
-./matteosalvatoreg
+The `/api/cv` response is built from the same content as `index.html`. The server sends `nosniff`, frame-deny, and referrer headers. Tests call the real Gin router rather than reimplementing handlers inline.
 
-# Or using Docker
-docker build -t matteosalvatoreg .
-docker run -p 8081:8081 matteosalvatoreg
-```
+## Tests
 
-### Testing
+`go test ./...` passes. There are no JavaScript tests for the page's translation or PDF code.
 
-```bash
-# Run tests
-go test -v ./...
+## Remaining gaps
 
-# Run with coverage
-go test -coverprofile=coverage.out ./...
-go tool cover -html=coverage.out
-```
-
-## Usage
-
-### Local Development
-
-```bash
-# Start the server
-./matteosalvatoreg
-
-# Access CV information
-curl http://localhost:8081/api/cv
-
-# Check system health
-curl http://localhost:8081/health
-```
-
-### API Examples
-
-#### Get CV Information
-```bash
-curl -X GET http://localhost:8081/api/cv
-```
-
-#### Health Check
-```bash
-curl -X GET http://localhost:8081/health
-```
-
-## Deployment
-
-### Docker Deployment
-
-```Dockerfile
-FROM golang:1.21-alpine
-
-WORKDIR /app
-
-COPY go.mod go.sum ./
-COPY . .
-
-RUN go build -o matteosalvatoreg main.go
-
-EXPOSE 8081
-
-CMD ["./matteosalvatoreg"]
-```
-
-### Kubernetes Deployment
-
-```yaml
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: matteosalvatoreg
-  labels:
-    app: matteosalvatoreg
-spec:
-  replicas: 2
-  selector:
-    matchLabels:
-      app: matteosalvatoreg
-  template:
-    metadata:
-      labels:
-        app: matteosalvatoreg
-    spec:
-      containers:
-      - name: matteosalvatoreg
-        image: matteosalvatoreg:latest
-        ports:
-        - containerPort: 8081
-        env:
-        - name: NODE_ENV
-          value: "production"
-```
-
-## Development
-
-### Project Structure
-
-```
-.
-├── main.go          # Main application
-├── main_test.go     # Tests
-├── go.mod          # Module configuration
-└── README.md       # Documentation
-```
-
-### Features Implemented
-
-- **Professional CV Showcase**: Complete CV information display
-- **Clean Architecture**: Separation of concerns
-- **Security First**: Security headers and validation
-- **API-First**: RESTful API design
-- **Developer Experience**: Comprehensive testing and documentation
-
-## License
-
-MIT License
-
-## Future Enhancements
-
-- [ ] Add social media links
-- [ ] Implement CV download functionality
-- [ ] Add admin dashboard
-- [ ] Integrate with HR systems
-- [ ] Add multi-language support
-- [ ] Implement analytics integration
-
-## Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Implement your changes
-4. Add tests
-5. Submit a pull request
-
-## Contact
-
-For questions or suggestions, please open an issue or contact the maintainer.
+- CDN dependencies have no Subresource Integrity hashes and require network access; there is no offline fallback.
+- The Go API and the page share content manually. A future change could let the page fetch `/api/cv` so there is one runtime source of truth.
+- There is no Dockerfile or deployment manifest; the site is designed for static hosting via GitHub Pages.
+- No favicon, privacy policy, or analytics configuration is included.
+- The old duplicate `matteosalvatoreg-master.zip` was removed; the working files are the source of truth.
