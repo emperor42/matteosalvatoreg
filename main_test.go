@@ -2,10 +2,12 @@ package main
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/http"
 	"net/http/httptest"
 	"strings"
 	"testing"
+	"time"
 
 	"github.com/gin-gonic/gin"
 )
@@ -57,6 +59,66 @@ func TestCVHandlerUsesRealData(t *testing.T) {
 	}
 	if strings.Contains(rr.Body.String(), "Alex Chen") || strings.Contains(rr.Body.String(), "example.com") {
 		t.Error("placeholder identity still present in /api/cv")
+	}
+}
+
+func TestExperienceYearCalculations(t *testing.T) {
+	if got := startYearFromYears(15, 2026); got != 2011 {
+		t.Errorf("startYearFromYears(15, 2026) = %d, want 2011", got)
+	}
+	if experienceStartYear != 2011 {
+		t.Errorf("experienceStartYear = %d, want 2011", experienceStartYear)
+	}
+
+	tests := []struct {
+		startYear   int
+		currentYear int
+		want        int
+	}{
+		{2011, 2026, 15},
+		{2011, 2030, 19},
+		{2011, 2011, 0},
+		{2011, 2009, 0},
+	}
+	for _, tt := range tests {
+		if got := yearsSince(tt.startYear, tt.currentYear); got != tt.want {
+			t.Errorf("yearsSince(%d, %d) = %d, want %d", tt.startYear, tt.currentYear, got, tt.want)
+		}
+	}
+	if got := experienceYears(2026); got != 15 {
+		t.Errorf("experienceYears(2026) = %d, want 15", got)
+	}
+}
+
+func TestCVSummaryUsesCalculatedYears(t *testing.T) {
+	rr := perform(testRouter(t), http.MethodGet, "/api/cv")
+	var cv CVData
+	if err := json.Unmarshal(rr.Body.Bytes(), &cv); err != nil {
+		t.Fatal(err)
+	}
+	want := fmt.Sprintf("%d+ years (since %d)", experienceYears(time.Now().Year()), experienceStartYear)
+	if !strings.Contains(cv.Summary, want) {
+		t.Errorf("summary = %q, want it to contain %q", cv.Summary, want)
+	}
+	if strings.Contains(cv.Summary, "15+ years across") {
+		t.Error("summary still contains the old hardcoded years claim")
+	}
+}
+
+func TestPageCalculatesYearsInBrowser(t *testing.T) {
+	page := perform(testRouter(t), http.MethodGet, "/")
+	body := page.Body.String()
+	for _, snippet := range []string{
+		"function startYearFromYears",
+		"function yearsSince",
+		"ORIGINAL_YEARS_CLAIM = 15",
+		"ORIGINAL_CLAIM_YEAR = 2026",
+		"{EXPERIENCE_YEARS}",
+		"{EXPERIENCE_START_YEAR}",
+	} {
+		if !strings.Contains(body, snippet) {
+			t.Errorf("page is missing %q", snippet)
+		}
 	}
 }
 

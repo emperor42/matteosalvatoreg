@@ -18,6 +18,7 @@ Loopback and container-publishing rules for all six demos: [`../docs/LOCAL-DEMOS
 ### The CV page
 
 - Sections: summary, experience, education, skills, credentials and professional status, projects, and contact.
+- The summary's "years of experience" field is calculated: the original `15+ years` claim in 2026 gives a start year of **2011**, and the current count is derived from that start year on page load. The JSON API uses the same calculation.
 - EN / FR / IT language switcher driven by `data-i18n` attributes.
 - Buttons that build a one-page PDF résumé from the DOM with jsPDF.
 - Links to GitHub, LinkedIn, HackerRank, Salesforce Trailblazer, HackerOne, and a booking calendar.

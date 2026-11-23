@@ -2,6 +2,7 @@ package main
 
 import (
 	"embed"
+	"fmt"
 	"log"
 	"net"
 	"net/http"
@@ -14,6 +15,35 @@ import (
 
 //go:embed index.html img.png
 var assets embed.FS
+
+const (
+	// The original CV said "15+ years" in 2026. Keep that claim as the anchor
+	// so the implied start year is derived, not hardcoded a second time.
+	originalYearsClaim = 15
+	originalClaimYear  = 2026
+)
+
+// startYearFromYears returns the year in which a career spanning `years` up to
+// `currentYear` began. For example, 15 years as of 2026 started in 2011.
+func startYearFromYears(years, currentYear int) int {
+	return currentYear - years
+}
+
+// yearsSince counts completed years from a start year, never going negative.
+func yearsSince(startYear, currentYear int) int {
+	if currentYear <= startYear {
+		return 0
+	}
+	return currentYear - startYear
+}
+
+var experienceStartYear = startYearFromYears(originalYearsClaim, originalClaimYear)
+
+// experienceYears is the current value for fields that state years of
+// experience. index.html performs the same calculation with the same anchor.
+func experienceYears(currentYear int) int {
+	return yearsSince(experienceStartYear, currentYear)
+}
 
 type Experience struct {
 	Company    string   `json:"company"`
@@ -54,9 +84,12 @@ func currentCV() CVData {
 		Email:    "matthew.giancola42@gmail.com",
 		Phone:    "+1 514 430 9542",
 		Location: "Hamilton, Ontario, Canada",
-		Summary: "Software Engineering graduate (Concordia University) and EIT with PEO. " +
-			"15+ years across Java, Python, C/C++, PHP, and Go, focused on AI, " +
-			"cybersecurity, and Salesforce platform development.",
+		Summary: fmt.Sprintf(
+			"Software Engineering graduate (Concordia University) and EIT with PEO. "+
+				"%d+ years (since %d) across Java, Python, C/C++, PHP, and Go, focused on AI, "+
+				"cybersecurity, and Salesforce platform development.",
+			experienceYears(time.Now().Year()), experienceStartYear,
+		),
 		Experience: []Experience{
 			{
 				Company: "Synpulse", Role: "Software Engineer", Location: "Toronto, Ontario", Period: "Current",

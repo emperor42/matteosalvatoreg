@@ -424,7 +424,7 @@
   <h2 data-i18n="secSummary">Professional Summary</h2>
   <div class="summary-text">
     <p class="line"><strong data-i18n="sumL1">Software Engineering graduate (Concordia University) and EIT with PEO</strong></p>
-    <p class="line" data-i18n="sumL2">15+ years across Java, Python, C/C++, PHP, and Go</p>
+    <p class="line" data-i18n="sumL2">{EXPERIENCE_YEARS}+ years (since {EXPERIENCE_START_YEAR}) across Java, Python, C/C++, PHP, and Go</p>
     <p class="line" data-i18n="sumL3">Focus: AI, cybersecurity, and Salesforce platform development</p>
     <p class="line" data-i18n="sumL4">Passionate about open-source software and self-hosted solutions</p>
   </div>
@@ -686,6 +686,34 @@
 (function () {
   'use strict';
 
+  // ================= CALCULATED YEAR FIELDS =================
+  // The original CV said "15+ years" in 2026. Derive the implied start year
+  // from that claim, then calculate the current count from the start year.
+  var ORIGINAL_YEARS_CLAIM = 15;
+  var ORIGINAL_CLAIM_YEAR = 2026;
+
+  function startYearFromYears(years, currentYear) {
+    return currentYear - years;
+  }
+
+  function yearsSince(startYear, currentYear) {
+    return Math.max(0, currentYear - startYear);
+  }
+
+  var EXPERIENCE_START_YEAR = startYearFromYears(ORIGINAL_YEARS_CLAIM, ORIGINAL_CLAIM_YEAR);
+  var EXPERIENCE_YEARS = yearsSince(EXPERIENCE_START_YEAR, new Date().getFullYear());
+
+  var YEAR_TOKENS = {
+    EXPERIENCE_YEARS: String(EXPERIENCE_YEARS),
+    EXPERIENCE_START_YEAR: String(EXPERIENCE_START_YEAR)
+  };
+
+  function expandYearTokens(text) {
+    return String(text).replace(/\{(EXPERIENCE_YEARS|EXPERIENCE_START_YEAR)\}/g, function (match, token) {
+      return YEAR_TOKENS[token];
+    });
+  }
+
   // ================= TRANSLATION DICTIONARY =================
   var I18N = {
     subtitle:              { en: "Software Development Expert", fr: "Expert en développement logiciel", it: "Esperto di sviluppo software" },
@@ -704,7 +732,7 @@
     secProjects:           { en: "Key Projects", fr: "Projets clés", it: "Progetti principali" },
 
     sumL1:                 { en: "Software Engineering graduate (Concordia University) and EIT with PEO", fr: "Diplômé en génie logiciel (Université Concordia) et EIT auprès de l'Ordre des ingénieurs de l'Ontario", it: "Laureato in ingegneria del software (Università Concordia) ed EIT presso l'Ordine degli Ingegneri dell'Ontario" },
-    sumL2:                 { en: "15+ years across Java, Python, C/C++, PHP, and Go", fr: "Plus de 15 ans avec Java, Python, C/C++, PHP et Go", it: "Oltre 15 anni di esperienza con Java, Python, C/C++, PHP e Go" },
+    sumL2:                 { en: "{EXPERIENCE_YEARS}+ years (since {EXPERIENCE_START_YEAR}) across Java, Python, C/C++, PHP, and Go", fr: "Plus de {EXPERIENCE_YEARS} ans (depuis {EXPERIENCE_START_YEAR}) avec Java, Python, C/C++, PHP et Go", it: "Oltre {EXPERIENCE_YEARS} anni di esperienza (dal {EXPERIENCE_START_YEAR}) con Java, Python, C/C++, PHP e Go" },
     sumL3:                 { en: "Focus: AI, cybersecurity, and Salesforce platform development", fr: "Domaines : IA, cybersécurité et développement de plateformes Salesforce", it: "Specializzazione: IA, sicurezza informatica e sviluppo di piattaforme Salesforce" },
     sumL4:                 { en: "Passionate about open-source software and self-hosted solutions", fr: "Passionné par les logiciels libres et les solutions auto-hébergées", it: "Appassionato di software open source e soluzioni self-hosted" },
 
@@ -781,7 +809,7 @@
   function t(key) {
     var entry = I18N[key];
     if (!entry) return key;
-    return entry[currentLang] || entry.en;
+    return expandYearTokens(entry[currentLang] || entry.en);
   }
 
   function applyLanguage(lang) {
@@ -799,6 +827,12 @@
 
     try { localStorage.setItem('preferred-lang', lang); } catch (e) { /* private mode */ }
   }
+
+  // Set calculated fields as soon as this script runs. The load handler below
+  // only needs to wire up the language buttons after that.
+  var initialLang = 'en';
+  try { initialLang = localStorage.getItem('preferred-lang') || 'en'; } catch (e) {}
+  applyLanguage(initialLang);
 
   // ================= DOM SCRAPING HELPERS =================
   function textOf(el) {
@@ -1016,10 +1050,6 @@
 
   // ================= INIT =================
   window.addEventListener('load', function () {
-    var saved = 'en';
-    try { saved = localStorage.getItem('preferred-lang') || 'en'; } catch (e) {}
-    applyLanguage(saved);
-
     document.querySelectorAll('.lang-btn').forEach(function (btn) {
       btn.addEventListener('click', function () {
         applyLanguage(btn.getAttribute('data-lang'));
